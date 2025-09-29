@@ -1,3 +1,7 @@
+//**************************************
+//    Max.java
+//    Author: Fiona Fung
+//**************************************
 import java.util.Scanner;
 import java.util.Arrays;
 

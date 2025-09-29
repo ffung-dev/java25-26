@@ -1,5 +1,6 @@
 //*****************************************
 //    ValidDate.java
+//    Author: Fiona Fung
 //*****************************************
 
 import java.util.Scanner;

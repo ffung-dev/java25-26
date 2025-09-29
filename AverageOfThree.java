@@ -1,6 +1,6 @@
 //************************************
-// AverageOfThree.java 
-// Author: Fiona Fung
+//    AverageOfThree.java 
+//    Author: Fiona Fung
 //************************************
 
 import java.util.Scanner;

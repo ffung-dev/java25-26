@@ -1,6 +1,6 @@
 //***************************************
 //    RandomCard.java
-//    Fiona Fung
+//    Author: Fiona Fung
 //***************************************
 
 public class RandomCard

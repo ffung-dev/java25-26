@@ -1,6 +1,6 @@
 //***********************************************
-//    SortThree.java    Author: Fiona Fung
-//
+//    SortThree.java    
+//    Author: Fiona Fung
 //***********************************************
 
 
