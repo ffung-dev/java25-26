@@ -32,6 +32,8 @@ public class Max {
     int n4 = input.nextInt();
     System.out.println("Largest #: " + max(n1, n2, n3, n4));
     System.out.println("Smallest #: " + min(n1, n2, n3, n4));
+
+    input.close();
   }
 }
 

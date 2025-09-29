@@ -24,7 +24,9 @@ public class ApproxEquals
          
          System.out.println("Again? (1 = yes)");
          again = input.nextInt();
-      } while (again == 1);     
+      } while (again == 1);  
+      
+      input.close();
    }
    
    public static boolean approxEquals(double a, double b, double tolerance) 

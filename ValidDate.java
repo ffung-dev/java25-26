@@ -89,5 +89,7 @@ public class ValidDate
       } else {
          System.out.println(date + " is not a valid date.");
       }
+
+      input.close();
    }
 }
