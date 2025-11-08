@@ -3,7 +3,8 @@
 //    Author: Fiona Fung
 //**********************************
 
-import java.util.Arrays;
+// for testing
+// import java.util.Arrays;
 
 public class MultiSearchResize
 {
@@ -45,7 +46,7 @@ public class MultiSearchResize
       int[] nums = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
       System.out.println(Arrays.toString(multiSearch(nums, 7))); */
       
-      int[] array = new int[100000];
+      // int[] array = new int[100000];
       // System.out.println(Arrays.toString(multiSearch(array, 0))); // fast!
    }
 
