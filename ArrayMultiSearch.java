@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class ArrayMultiSearch
 {
    public static int[] multiSearch(int[] array, int key)
-   {
-      int length = 0;
+   {;
       ArrayList<Integer> resultList = new ArrayList<Integer>();
       // add key indexes to resultList if i == key
       for (int i = 0 ; i < array.length ; i++)
