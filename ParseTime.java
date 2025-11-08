@@ -129,6 +129,7 @@ public class ParseTime
       return minResult;
    }
    
+   /* test values
    public static void main(String[] args)
    {
         System.out.println(parseTime("10:08 am"));
@@ -153,4 +154,5 @@ public class ParseTime
         System.out.println(parseTime("2553"));
         System.out.println(parseTime("noon")); 
    }
+        */
 }
