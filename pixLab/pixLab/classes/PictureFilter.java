@@ -34,10 +34,10 @@ public class PictureFilter
    
    // change brightness of a pic
    // setting should be between -100 and 100 
-   public static void adjustBrightness(Picture pic, double setting) 
+   public static void adjustBrightness(Picture pic, int setting) 
    {
       Pixel pixels[][] = pic.getPixels2D();
-      double factor = 1 + (setting / 100); 
+      double factor = (double) 1 + (setting / 100); 
       for (int r = 0 ; r < pixels.length ; r++)
       {
          for (int c = 0 ; c < pixels[r].length ; c++)
@@ -104,7 +104,7 @@ public class PictureFilter
       }
    }
    
-   public static void adjustCool(Picture pic, double setting) 
+   public static void adjustCool(Picture pic, int setting) 
    {
       Pixel pixels[][] = pic.getPixels2D();
       for (int r = 0 ; r < pixels.length ; r++)
@@ -124,23 +124,36 @@ public class PictureFilter
       }
    }
    
-   // sensitivity is 0 - 100 where 0 is not sensitive at all and 100 is picky
-   public static Picture greenScreen(Picture oldPic, Picture background, Color bgRemove, int sensitivity)
+   // strength is 0 - 100 (preferred, but i guess it can be > 100) where 0 is super super sensitive and 100 is not sensitive
+   // IMPORTANT NOTE!!!!!!!!!! I changed the scale method in SimplePicture because row should correspond to height and col to width; more in paper
+   public static Picture greenScreen(Picture oldPic, Picture background, Color bgRemove, int strength)
    {
       Pixel oldPixels[][] = oldPic.getPixels2D();
-      Pixel newBgPixels[][] = background.getPixels2D();
+      Pixel bgPixels[][] = background.getPixels2D();
+      double xFactor = (double) oldPic.getWidth() / background.getWidth();
+      double yFactor = (double) oldPic.getHeight() / background.getHeight();
+      Picture newBg = background.scale(xFactor, yFactor);
+      // System.out.println(newBg.getWidth() + " " + newBg.getHeight());
+      Pixel newBgPixels[][] = newBg.getPixels2D(); // scale to the same size as oldPic
+      
+      /* 
+      System.out.println(xFactor + " " + yFactor);
+      System.out.println(oldPixels[0].length + " " + oldPixels.length);
+      System.out.println(bgPixels[0].length + " " + bgPixels.length);      
+      System.out.println(newBgPixels[0].length + " " + newBgPixels.length);
+      */ 
       Picture result = new Picture(oldPixels.length, oldPixels[0].length);
       Pixel resultPixels[][] = result.getPixels2D();
-      int distLimit = 100 - sensitivity; 
-
+      
       for (int row = 0 ; row < oldPixels.length ; row++) 
       {
         for (int col = 0 ; col < oldPixels[0].length; col++)
         {
-            if (oldPixels[row][col].colorDistance(bgRemove) > distLimit) // stays the same
+            if (oldPixels[row][col].colorDistance(bgRemove) > strength) // stays the same
             {
                 resultPixels[row][col].setColor(oldPixels[row][col].getColor()); 
             } else { // change to new background
+               // debug System.out.println(row + " " + col);
                 resultPixels[row][col].setColor(newBgPixels[row][col].getColor());
             }
         }    
@@ -148,9 +161,12 @@ public class PictureFilter
       return result;
    }
    
-   public static void filter(Picture pic, double brightness, double saturation, double warmth, double tint)
+   public static void filter(Picture pic, int brightness, int saturation, int warmth, int tint)
    {
-   
+      adjustBrightness(pic, brightness);
+      adjustSaturation(pic, saturation);
+      adjustWarmth(pic, warmth);
+      adjustCool(pic, tint);
    }
    
    // testing
@@ -158,9 +174,9 @@ public class PictureFilter
    {
       Picture bunny = new Picture("bunny.jpg"); // green screen
       Picture beach = new Picture("beach.jpg");
-      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 90);
       bunny.explore();
       beach.explore();
+      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 20);
       newBunny.explore();
    }
 }
