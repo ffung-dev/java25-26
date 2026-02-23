@@ -130,6 +130,7 @@ public class PictureFilter
       Pixel oldPixels[][] = oldPic.getPixels2D();
       Pixel newBgPixels[][] = background.getPixels2D();
       Picture result = new Picture(oldPixels.length, oldPixels[0].length);
+      Pixel resultPixels[][] = result.getPixels2D();
       int distLimit = 100 - sensitivity; 
 
       for (int row = 0 ; row < oldPixels.length ; row++) 
@@ -138,9 +139,9 @@ public class PictureFilter
         {
             if (oldPixels[row][col].colorDistance(bgRemove) > distLimit) // stays the same
             {
-                result[row][col].setColor(oldPixels[row][col].getColor()); 
+                resultPixels[row][col].setColor(oldPixels[row][col].getColor()); 
             } else { // change to new background
-                result[row][col].setColor(newBgPixels[row][col].getColor());
+                resultPixels[row][col].setColor(newBgPixels[row][col].getColor());
             }
         }    
       }  
@@ -155,9 +156,11 @@ public class PictureFilter
    // testing
    public static void main(String[] args)
    {
+      Picture bunny = new Picture("bunny.png"); // green screen
       Picture beach = new Picture("beach.jpg");
+      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 90);
+      bunny.explore();
       beach.explore();
-      
-      beach.explore();
+      newBunny.explore();
    }
 }
