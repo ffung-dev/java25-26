@@ -37,14 +37,15 @@ public class PictureFilter
    public static void adjustBrightness(Picture pic, int setting) 
    {
       Pixel pixels[][] = pic.getPixels2D();
-      double factor = (double) 1 + (setting / 100); 
+      double factor =  1 + (double) setting / 100; 
+      // debug System.out.println(factor);
       for (int r = 0 ; r < pixels.length ; r++)
       {
          for (int c = 0 ; c < pixels[r].length ; c++)
          {
-            int red = (int)(Math.floor(pixels[r][c].getColor().getRed() * factor));
-            int green = (int)(Math.floor(pixels[r][c].getColor().getGreen() * factor));
-            int blue = (int)(Math.floor(pixels[r][c].getColor().getBlue() * factor));
+            int red = (int)(Math.floor((double) pixels[r][c].getColor().getRed() * factor));
+            int green = (int)(Math.floor((double)pixels[r][c].getColor().getGreen() * factor));
+            int blue = (int)(Math.floor((double)pixels[r][c].getColor().getBlue() * factor));
             // check rgb 
             red = checkRed(red);
             green = checkGreen(green);
@@ -58,7 +59,7 @@ public class PictureFilter
    public static void adjustSaturation(Picture pic, int setting) // setting should be between -100 to 100
    {
       Pixel pixels[][] = pic.getPixels2D();
-      double strength = 1 + (setting / 100); // strength is >= 0 ; 0 = grayscale, > 1 = saturated, =1 = no change
+      double strength = 1 + (double)(setting / 100); // strength is >= 0 ; 0 = grayscale, > 1 = saturated, =1 = no change
      for (int r = 0 ; r < pixels.length ; r++)
       {
          for (int c = 0 ; c < pixels[r].length ; c++)
@@ -169,12 +170,44 @@ public class PictureFilter
       adjustCool(pic, tint);
    }
    
+   // custom filters
+   public static void vintageFilter(Picture pic)
+   {
+      adjustBrightness(pic, -10);
+      adjustSaturation(pic, -100);
+      adjustWarmth(pic, 30);
+   }
+   
+   public static void goldenFilter(Picture pic)
+   {
+      adjustBrightness(pic, -20);
+      adjustSaturation(pic, 10);
+      adjustWarmth(pic, 60);
+      adjustCool(pic, 25);
+   }
+   
+   public static void winterFilter(Picture pic)
+   {
+      adjustBrightness(pic, -30);
+      adjustSaturation(pic, 5);
+      adjustWarmth(pic, 15);
+      adjustCool(pic, 30);
+   }
+   
    // testing
    public static void main(String[] args)
    {
-      Picture bunny = new Picture("bunny.jpg"); // green screen
+      // greenScreen
+      Picture bunny = new Picture("bunny.jpg"); 
       Picture beach = new Picture("beach.jpg");
-      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 80);
-      newBunny.explore();
+      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 120);
+      // newBunny.explore();
+      
+      // filter
+      Picture hall = new Picture("femaleLionAndHall.jpg");
+      hall.explore();
+      winterFilter(hall);
+      hall.explore();
+      
    }
 }
