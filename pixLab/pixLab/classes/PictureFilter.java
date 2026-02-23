@@ -156,7 +156,7 @@ public class PictureFilter
    // testing
    public static void main(String[] args)
    {
-      Picture bunny = new Picture("bunny.png"); // green screen
+      Picture bunny = new Picture("bunny.jpg"); // green screen
       Picture beach = new Picture("beach.jpg");
       Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 90);
       bunny.explore();
