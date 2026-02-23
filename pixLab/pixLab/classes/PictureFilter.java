@@ -186,6 +186,15 @@ public class PictureFilter
       adjustCool(pic, 25);
    }
    
+   // newGoldenFilter: uses both filter and greenScreen, so it returns a new Picture
+   public static Picture newGoldenFilter(Picture pic, Color bgRemove, int strength)
+   {
+      Picture sunsetBg = new Picture("sunset.jpg");
+      Picture result = greenScreen(pic, sunsetBg, bgRemove, strength);
+      goldenFilter(result);
+      return result;
+   }
+   
    public static void winterFilter(Picture pic)
    {
       adjustBrightness(pic, -30);
@@ -200,8 +209,9 @@ public class PictureFilter
       // greenScreen
       Picture bunny = new Picture("bunny.jpg"); 
       Picture beach = new Picture("beach.jpg");
-      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 120);
-      // newBunny.explore();
+      bunny.explore();
+      Picture newBunny = newGoldenFilter(bunny, new Color(27, 255, 93), 120);
+      newBunny.explore();
       
       // filter
       Picture hall = new Picture("femaleLionAndHall.jpg");
