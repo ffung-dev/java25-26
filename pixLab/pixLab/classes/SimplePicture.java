@@ -554,8 +554,7 @@ public class SimplePicture implements DigitalPicture
     scaleTransform.scale(xFactor,yFactor);
     
     // create a new picture object that is the right size
-    Picture result = new Picture((int) (getWidth() * xFactor),
-                                 (int) (getHeight() * yFactor));
+    Picture result = new Picture((int) (getHeight() * yFactor), (int) (getWidth() * xFactor));
     
     // get the graphics 2d object to draw on the result
     Graphics graphics = result.getGraphics();
