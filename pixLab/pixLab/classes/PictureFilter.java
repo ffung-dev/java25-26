@@ -174,9 +174,7 @@ public class PictureFilter
    {
       Picture bunny = new Picture("bunny.jpg"); // green screen
       Picture beach = new Picture("beach.jpg");
-      bunny.explore();
-      beach.explore();
-      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 20);
+      Picture newBunny = greenScreen(bunny, beach, new Color(27, 255, 93), 80);
       newBunny.explore();
    }
 }
