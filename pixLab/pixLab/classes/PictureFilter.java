@@ -56,10 +56,10 @@ public class PictureFilter
       }
    }
 
-   public static void adjustSaturation(Picture pic, int setting) // setting should be between -100 to 100
+   public static void adjustSaturation(Picture pic, int setting) // setting should be between 0 to 100+
    {
       Pixel pixels[][] = pic.getPixels2D();
-      double strength = 1 + (double)(setting / 100); // strength is >= 0 ; 0 = grayscale, > 1 = saturated, =1 = no change
+      double strength = (double) setting / 100; // 0 = grayscale ; 100 = original ; 100+ = saturated
      for (int r = 0 ; r < pixels.length ; r++)
       {
          for (int c = 0 ; c < pixels[r].length ; c++)
@@ -67,12 +67,13 @@ public class PictureFilter
             int red = pixels[r][c].getColor().getRed();
             int green = pixels[r][c].getColor().getGreen();
             int blue = pixels[r][c].getColor().getBlue();
-            
+            // debug System.out.println(red + " " + green + " " + blue);
             int gray = (red + green + blue) / 3; // gray average
             // change new rgb
             red = (int) (gray + (red - gray) * strength); 
             green = (int) (gray + (green - gray) * strength); 
             blue = (int) (gray + (blue - gray) * strength); 
+            // debug System.out.println(red + " " + green + " " + blue);
 
             // check rgb 
             red = checkRed(red);
@@ -174,14 +175,14 @@ public class PictureFilter
    public static void vintageFilter(Picture pic)
    {
       adjustBrightness(pic, -10);
-      adjustSaturation(pic, -100);
+      adjustSaturation(pic, 0);
       adjustWarmth(pic, 30);
    }
    
    public static void goldenFilter(Picture pic)
    {
       adjustBrightness(pic, -20);
-      adjustSaturation(pic, 10);
+      adjustSaturation(pic, 110);
       adjustWarmth(pic, 60);
       adjustCool(pic, 25);
    }
@@ -191,14 +192,14 @@ public class PictureFilter
    {
       Picture sunsetBg = new Picture("sunset.jpg");
       Picture result = greenScreen(pic, sunsetBg, bgRemove, strength);
-      goldenFilter(result);
+      //goldenFilter(result);
       return result;
    }
    
    public static void winterFilter(Picture pic)
    {
       adjustBrightness(pic, -30);
-      adjustSaturation(pic, 5);
+      adjustSaturation(pic, 105);
       adjustWarmth(pic, 15);
       adjustCool(pic, 30);
    }
@@ -210,14 +211,25 @@ public class PictureFilter
       Picture bunny = new Picture("bunny.jpg"); 
       Picture beach = new Picture("beach.jpg");
       bunny.explore();
-      Picture newBunny = newGoldenFilter(bunny, new Color(27, 255, 93), 120);
+      Picture newBunny = 
+      //greenScreen(bunny, beach, new Color(27, 255, 93), 10);
+      newGoldenFilter(bunny, new Color(27, 255, 93), 120);
       newBunny.explore();
       
       // filter
       Picture hall = new Picture("femaleLionAndHall.jpg");
-      hall.explore();
-      winterFilter(hall);
-      hall.explore();
+      // hall.explore();
+      // filter(hall, 0, 100, 0, 0);
+      // hall.explore();
+      
+      // preset filters
+      Picture barbara = new Picture("barbaraS.jpg");
+      // barbara.explore();
+      // vintageFilter(barbara);
+      // goldenFilter(barbara);
+      // winterFilter(barbara);
+      // barbara.explore();
+
       
    }
 }
