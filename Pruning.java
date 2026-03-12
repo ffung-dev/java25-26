@@ -7,7 +7,7 @@ public class Pruning
 {
    public static void removeWithLength(StringArrayList list, int length)
    {
-      int temp = 0
+      int temp = 0;
       for (int i = 0 ; i < list.size() ; i++) // each word
       {
          // System.out.println(i);
