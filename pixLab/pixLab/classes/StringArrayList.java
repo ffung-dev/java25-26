@@ -4,6 +4,7 @@
 
 import java.util.ArrayList; 
 import java.util.Arrays;
+import java.util.Random;
 
 public class StringArrayList
 {
@@ -68,7 +69,7 @@ public class StringArrayList
       // 0 <= index < size
       if (index < 0 || index > size)
       {
-         throw new IndexOutOfBoundsException();
+         throw new IndexOutOfBoundsException("Index " + index + " is not in bounds");
       } else {
          // length > size (has space)
          if (data.length == size)
@@ -91,19 +92,152 @@ public class StringArrayList
       add(size, str);
    }
    
+   public String get(int index)
+   {
+      // if element does not exist
+      if (index >= size)
+      {
+         throw new IndexOutOfBoundsException("Element does not exist at index " + index);
+      } else {
+         return data[index];
+      }      
+   }
+   
+   public String set(int index, String str)
+   {
+      // if element does not exist
+      if (index >= size)
+      {
+         throw new IndexOutOfBoundsException("Element does not exist at index " + index);
+      } else {
+         String prev = data[index];
+         data[index] = str; // change to new
+         return prev;
+      } 
+   }
+   
+   public String remove(int index)
+   {
+      // if element does not exist
+      if (index >= size)
+      {
+         throw new IndexOutOfBoundsException("Element does not exist at index " + index);
+      } else {
+         String removedStr = data[index];
+         for (int i = index ; i < size - 1 ; i++)
+         {
+            data[i] = data[i + 1];
+         }
+         data[size -1] = null; // clear out last element
+         size--; // decrease by 1
+         return removedStr;
+      } 
+         
+   }
+   
+   public boolean isEmpty()
+   {
+      return (size == 0);
+   }
+   
+   public void trim() // change length to size
+   {
+      changeLength(size);
+      // erases all nulls to save memory
+   }
+   
+   public void clear() // set all elements to null
+   {
+      while (!isEmpty()) // while not empty
+      {
+         remove(0); // since remove shifts to left, keep removing first term
+      }
+   }
+   
+   public void addAll(String[] array) // add to end of list
+   {
+      for (int i = 0 ; i < array.length ; i++)
+      {
+         add(array[i]);
+      }
+   }
+   
+   public void addAll(StringArrayList other)
+   {
+      for (int i = 0 ; i < other.size() ; i++)
+      {
+         add(other.data[i]);
+      }
+   }
+   
+   public boolean contains(String key)
+   {
+      for (int i = 0 ; i < size ; i++)
+      {
+         if (data[i] == key)
+         {
+            return true;
+         }
+      }
+      // gets out of loop = no element is key
+      return false;
+   }
+   
+   public int indexOf(String key)
+   {
+      if (contains(key))
+      {
+         for (int i = 0 ; i < size ; i++)
+         {
+            if (data[i] == key)
+            {
+               return i;
+            }
+         }
+      }
+      return -1;
+   }   
+   public void replace(String key, String repStr)
+   {
+      for (int i = 0 ; i < size ; i++)
+      {
+         if (data[i] == key)
+         {
+            data[i] = repStr;
+         }
+      }
+
+   }
+   
+   public void reverse()
+   {
+      String temp;
+      for (int i = 0 ; i < size/2 ; i++)
+      {
+         temp = data[i];
+         data[i] = data[size - 1 - i];
+         data[size - 1 - i] = temp;
+      }
+   }
+   
+   public void shuffle()
+   {
+      Random randomInt = new Random();
+      for (int i = size - 1 ; i > -1 ; i--)
+      {
+         int j = randomInt.nextInt(i + 1); // inclusive pick from 0 to i (pick what to swtich)
+         String temp = data[i];
+         data[i] = data[j];
+         data[j] = temp;
+      }
+   }
+   
    // for testing
    public static void main (String[] args)
    {
-      /* test 1
-      StringArrayList list1 = new StringArrayList();
-      System.out.println(list1.length());
-      System.out.println(list1.size());
-      StringArrayList list2 = new StringArrayList(50);
-      System.out.println(list2.length());
-      System.out.println(list2.size()); */
-      
-      /* test 2
+      /* TEST
       StringArrayList list = new StringArrayList(4);
+      StringArrayList list2 = new StringArrayList(3);
       //System.out.println(list.length());
       // list.data[0] = "Test"; //just for testing – don't do this normally
       //System.out.println(Arrays.toString(list.data));
@@ -112,16 +246,22 @@ public class StringArrayList
       //System.out.println(Arrays.toString(list.data)); 
       //System.out.println(list.toString());
       list.add(0,"0");
-      //System.out.println(list.size);
       list.add(1, "1");
-      //System.out.println(list.size);
       list.add("2");
-      //System.out.println(list.size);
       list.add(3, "3");
       list.add(2, "1.5");
-      //System.out.println(list.size);
-      System.out.println(list.length() + " " + list.size + " " + list.toString());
-      */
+      list.set(3, "2 at third");
+      list2.add("11");
+      list2.add("13");
+      list2.add(1, "12");
+      System.out.println(list.toString()); // full
+      System.out.println(Arrays.toString(list.data));
+      list.addAll(list2);
+      System.out.println(list.toString());
+      list.shuffle();
+      System.out.println(list.toString());
+      System.out.println(list.indexOf("11")); */
+      
    }
    
 }
