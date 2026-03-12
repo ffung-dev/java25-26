@@ -1,0 +1,41 @@
+//*************************************************************
+//    Pruning.java
+//    uses StringArrayList.java
+//*************************************************************
+
+public class Pruning
+{
+   public static void removeWithLength(StringArrayList list, int length)
+   {
+      int temp = 0
+      for (int i = 0 ; i < list.size() ; i++) // each word
+      {
+         // System.out.println(i);
+         do
+         {
+            if (list.get(i).length() == length)
+            {
+               System.out.println(list.get(i));
+               list.remove(i);
+            }
+            temp++;
+         } while (temp < list.size());
+         temp = 0;
+      }
+   }
+   
+   public static void main (String[] args)
+   {
+      StringArrayList list = new StringArrayList();
+      String sentence = "To be or not to be that is the question";
+      String[] words = sentence.split(" ");
+      for(String s: words)
+      {
+         list.add(s);
+      }
+      //removeWithLength(list, 3);
+      System.out.println(list.get(1) + " hello");
+      removeWithLength(list, 2);
+      System.out.println(list);
+   }
+}  
