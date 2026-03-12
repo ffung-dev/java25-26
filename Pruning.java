@@ -15,7 +15,7 @@ public class Pruning
          {
             if (list.get(i).length() == length)
             {
-               System.out.println(list.get(i));
+               //System.out.println(list.get(i));
                list.remove(i);
             }
             temp++;
@@ -26,6 +26,7 @@ public class Pruning
    
    public static void main (String[] args)
    {
+      /* test
       StringArrayList list = new StringArrayList();
       String sentence = "To be or not to be that is the question";
       String[] words = sentence.split(" ");
@@ -36,6 +37,6 @@ public class Pruning
       //removeWithLength(list, 3);
       System.out.println(list.get(1) + " hello");
       removeWithLength(list, 2);
-      System.out.println(list);
+      System.out.println(list); */
    }
 }  
